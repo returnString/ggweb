@@ -1,0 +1,20 @@
+Package: ggweb
+Title: TODO TITLE
+Version: 0.0.0.9000
+Authors@R: person("Ruan", "Pearce-Authers", email = "ruanpa@outlook.com", role = c("aut", "cre"))
+Description: TODO DESC
+Depends: R (>= 3.4)
+License: MIT + file LICENCE
+Encoding: UTF-8
+LazyData: true
+Imports:
+  dplyr,
+  shiny,
+  magrittr,
+  jsonlite,
+  gplots,
+  promises,
+  ggplot2,
+  rlang,
+  htmltools
+RoxygenNote: 6.1.1
