@@ -19,7 +19,8 @@ ggplot_to_chartjs <- function(src_plot) {
   geom_classes <- class(layer$geom)
   chart_type <- case_when(
     "GeomLine" %in% geom_classes ~ "line",
-    any(c("GeomBar", "GeomCol") %in% geom_classes) ~ "bar"
+    any(c("GeomBar", "GeomCol") %in% geom_classes) ~ "bar",
+    "GeomPoint" %in% geom_classes ~ "scatter"
   )
 
   x_scale_classes <- class(layout$panel_scales_x[[1]])
@@ -59,6 +60,7 @@ ggplot_to_chartjs <- function(src_plot) {
 
   colour_params <- switch(chart_type,
                           line = list(border = "colour", background = "colour", single_border = T),
+                          scatter = list(border = "colour", background = "colour", single_border = T),
                           bar = list(border = "fill", background = "fill", single_border = F)
   )
 
@@ -89,14 +91,19 @@ ggplot_to_chartjs <- function(src_plot) {
 
       for_rendering %<>% select(x, y)
 
+      size <- unbox(group_data$size[[1]] * ggplot2::.pt)
+
       options <- list(
         data = for_rendering,
         backgroundColor = colour_background,
         borderColor = colour_border,
         pointBorderColor = colour_border,
         pointBackgroundColor = colour_background,
-        borderWidth = unbox(group_data$size[[1]]) * ggplot2::.pt,
-        pointRadius = unbox(group_data$size[[1]]) * ggplot2::.pt
+        borderWidth = size,
+        pointRadius = size,
+        pointBorderWidth = size,
+        pointHoverBorderWidth = size,
+        pointHoverRadius = size * 1.5
       )
 
       if (is_grouped) {
@@ -136,7 +143,7 @@ ggplot_to_chartjs <- function(src_plot) {
           duration = unbox(0)
         ),
         tooltips = list(
-          mode = unbox("index"),
+          mode = unbox(ifelse(chart_type == "scatter", "point", "index")),
           intersect = unbox(F)
         ),
         legend = list(

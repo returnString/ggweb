@@ -19,5 +19,6 @@ fluidPage(
   comparison("geombar_dodged"),
   comparison("geombar_stacked"),
   comparison("geomline_single"),
-  comparison("geomline_split")
+  comparison("geomline_split"),
+  comparison("geompoint")
 )

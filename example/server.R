@@ -78,6 +78,12 @@ function(input, output) {
       labs(title = "Split lines", x = "Date", y = "Some Variable")
   })
 
+  geompoint <- reactive({
+    ggplot(var_over_time(), aes(date, var)) +
+      geom_point() +
+      labs(title = "Scatterplot", x = "Date", y = "Some Variable")
+  })
+
   output$geombar_faceted_img <- renderPlot({
     geombar_faceted_plot()
   })
@@ -106,6 +112,10 @@ function(input, output) {
     geomline_split_plot()
   })
 
+  output$geompoint_img <- renderPlot({
+    geompoint()
+  })
+
   output$geombar_faceted_web <- renderChart({
     geombar_faceted_plot()
   })
@@ -132,5 +142,9 @@ function(input, output) {
 
   output$geomline_split_web <- renderChart({
     geomline_split_plot()
+  })
+
+  output$geompoint_web <- renderChart({
+    geompoint()
   })
 }
