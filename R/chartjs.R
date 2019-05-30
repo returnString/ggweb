@@ -179,7 +179,8 @@ ggplot_to_chartjs <- function(src_plot) {
                 labelString = unbox(plot$labels$x)
               ),
               ticks = list(
-                autoSkip = unbox(x_scale_type != "discrete")
+                autoSkip = unbox(x_scale_type != "discrete"),
+                minRotation = unbox(ifelse(x_scale_type == "time", 45, 0))
               )
             )
           ),
