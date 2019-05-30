@@ -167,7 +167,11 @@ ggplot_to_chartjs <- function(src_plot) {
               time = list(
                 # FIXME: this ensures that days aren't rendered as times for low observation counts
                 # should replace with proper handling for date vs time scales from ggplot
-                minUnit = unbox("day")
+                minUnit = unbox("day"),
+                tooltipFormat = unbox("ddd, Do MMM YYYY"),
+                displayFormats = list(
+                  day = unbox("ddd DD/MM/YYYY")
+                )
               ),
               labels = panel_params$x.labels %>% trimws(),
               scaleLabel = list(
