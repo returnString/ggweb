@@ -143,7 +143,7 @@ ggplot_to_chartjs <- function(src_plot) {
           duration = unbox(0)
         ),
         tooltips = list(
-          mode = unbox(ifelse(chart_type == "scatter", "point", "index")),
+          mode = unbox(ifelse(chart_type == "scatter", "point", "x")),
           intersect = unbox(F)
         ),
         legend = list(
